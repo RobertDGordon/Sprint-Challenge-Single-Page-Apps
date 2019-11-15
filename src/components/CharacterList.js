@@ -44,6 +44,20 @@ const CharacterCards = styled.section`
   overflow: auto;
 `
 
+const PageButtons = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button{
+        margin: 10px 25px;
+        color: white;
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: darkgrey;
+        width: 85px;
+    }
+`
+
 export default function CharacterList() {
   
   const [characters, setCharacters] = useState([]);
@@ -52,9 +66,37 @@ export default function CharacterList() {
 
   const [searchNow, setSearchNow] = useState ({});
 
+  let [page, setPage] = useState (0);
+
+  const [pages, setPages] = useState(0)
+
   const handleChange = event => {
     setSrch({ ...srch, [event.target.name]: event.target.value });
   };
+
+  const handlePrevious = event => {
+    if (page === 1){
+        console.log('first page count =', page)
+    }else{
+      setPage(page = page - 1)
+      console.log('current page count', page)
+    }
+  // setSearchNow(srch)
+  // console.log('prev button')
+};
+
+const handleNext = event => {
+  if (page === pages){
+      console.log('final page')
+  }else if (page === 0){
+      setPage(1)
+  }else{
+    setPage(page =  page + 1)
+    console.log('current page count', page)
+  }
+  // setSearchNow(srch)
+  // console.log('next button')
+};
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -64,16 +106,17 @@ export default function CharacterList() {
 
   useEffect(() => {
     axios
-      .get(`https://rickandmortyapi.com/api/character?name=${srch.name}&status=${srch.status}`)
+      .get(`https://rickandmortyapi.com/api/character?name=${srch.name}&status=${srch.status}&page=${page.toString()}`)
       .then(response => {
         console.log(response.data.results)
+        setPages(response.data.info.pages)
         setCharacters(response.data.results)
       })
       .catch (error => {
         console.log (error);
       })
 
-  },[searchNow]);
+  },[searchNow, page]);
 
   return (
     <>
@@ -101,6 +144,10 @@ export default function CharacterList() {
         <CharacterCard key={character.id} name={character.name} species={character.species} status={character.status} location={character.location}/>
       ))}
     </CharacterCards>
+    <PageButtons>
+      <button onClick={event => handlePrevious(event)}>Previous</button>
+      <button onClick={event => handleNext(event)}>Next</button>
+    </PageButtons>
     </>
   );
 }
