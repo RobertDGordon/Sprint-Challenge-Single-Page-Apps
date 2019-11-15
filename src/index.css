@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Patrick+Hand+SC&display=swap');
+
 body {
   margin: 0;
   padding: 0;
@@ -5,6 +7,8 @@ body {
   background-attachment: fixed;
   background-image: url('https://wallpapercart.com/wp-content/uploads/2019/02/Rick-and-Morty-Wallpapers-1920x1080-10.png');
   background-size: cover;
+  font-family: 'Patrick Hand SC', cursive;
+  font-size: 130%;
 }
 
 main {

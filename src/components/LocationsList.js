@@ -7,7 +7,7 @@ const SearchBar = styled.section`
     display: flex;
     justify-content: center;
     margin: 10px auto;
-    width: 620px;
+    width: 800px;
     padding: 10px;
     background-color: white;
     border: 1px solid black;
@@ -48,7 +48,7 @@ export default function CharacterList() {
   
   const [loc, setLoc] = useState([]);
 
-  const [srch, setSrch] = useState({name:" ", dimension:" "});
+  const [srch, setSrch] = useState({name:" ", type:" ", dimension:" "});
 
   const [searchNow, setSearchNow] = useState ({});
 
@@ -59,12 +59,12 @@ export default function CharacterList() {
   const handleSubmit = event => {
     event.preventDefault();
     setSearchNow(srch)
-    console.log (srch.name, srch.dimension);
+    console.log (srch.name, srch.type, srch.dimension);
   }
 
   useEffect(() => {
     axios
-      .get(`https://rickandmortyapi.com/api/location?name=${srch.name}&dimension=${srch.dimension}`)
+      .get(`https://rickandmortyapi.com/api/location?name=${srch.name}&type=${srch.type}&dimension=${srch.dimension}`)
       .then(response => {
         console.log(response.data.results)
         setLoc(response.data.results)
@@ -82,6 +82,20 @@ export default function CharacterList() {
           <label>
             Name:
             <input type="text" name="name" onChange={event => handleChange(event)} />
+          </label>
+          <label>
+            Type:
+            {/* <input type="text" name="status" onChange={event => handleChange(event)} /> */}
+            <select name="type" onChange={event => handleChange(event)}>
+              <option value=''>All</option>
+              <option value='Planet'>Planet</option>
+              <option value='Cluster'>Cluster</option>
+              <option value='Space'>Space Station</option>
+              <option value='Fantasy'>Fantasy</option>
+              <option value='Dream'>Dream</option>
+              <option value='Resort'>Resort</option>
+              <option value='Unknown'>Unknown</option>
+            </select>
           </label>
           <label>
             Dimension:
