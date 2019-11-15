@@ -7,7 +7,7 @@ const SearchBar = styled.section`
     display: flex;
     justify-content: center;
     margin: 10px auto;
-    width: 600px;
+    width: 620px;
     padding: 10px;
     background-color: white;
     border: 1px solid black;
