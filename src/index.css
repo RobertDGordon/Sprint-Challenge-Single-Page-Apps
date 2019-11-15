@@ -2,13 +2,16 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-attachment: fixed;
+  background-image: url('https://wallpapercart.com/wp-content/uploads/2019/02/Rick-and-Morty-Wallpapers-1920x1080-10.png');
+  background-size: cover;
 }
 
 main {
   width: 85vw;
   min-height: 80vh;
   max-width: 1024px;
-  margin: 35px auto;
+  margin: 35px 70px;
   background: #fff;
   padding: 15px;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
