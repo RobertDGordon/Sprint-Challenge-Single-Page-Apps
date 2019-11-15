@@ -22,6 +22,7 @@ const Card =  styled.div`
   }
   span{
     font-weight: bold;
+    color: greenyellow;
   }
 `
 

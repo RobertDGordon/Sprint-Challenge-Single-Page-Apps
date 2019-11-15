@@ -44,6 +44,20 @@ const LocationCards = styled.section`
   overflow: auto;
 `
 
+const PageButtons = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button{
+        margin: 10px 25px;
+        color: white;
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: darkgrey;
+        width: 85px;
+    }
+`
+
 export default function CharacterList() {
   
   const [loc, setLoc] = useState([]);
@@ -52,28 +66,59 @@ export default function CharacterList() {
 
   const [searchNow, setSearchNow] = useState ({});
 
+  let [page, setPage] = useState (0);
+
+  const [pages, setPages] = useState(0)
+
   const handleChange = event => {
     setSrch({ ...srch, [event.target.name]: event.target.value });
   };
 
+  const handlePrevious = event => {
+      if (page === 1){
+          console.log('first page count =', page)
+      }else{
+        setPage(page = page - 1)
+        console.log('current page count', page)
+      }
+    // setSearchNow(srch)
+    // console.log('prev button')
+  };
+
+  const handleNext = event => {
+    if (page === pages){
+        console.log('final page')
+    }else if (page === 0){
+        setPage(1)
+    }else{
+      setPage(page =  page + 1)
+      console.log('current page count', page)
+    }
+    // setSearchNow(srch)
+    // console.log('next button')
+};
+
   const handleSubmit = event => {
     event.preventDefault();
+    setPage(1)
     setSearchNow(srch)
     console.log (srch.name, srch.type, srch.dimension);
   }
 
   useEffect(() => {
     axios
-      .get(`https://rickandmortyapi.com/api/location?name=${srch.name}&type=${srch.type}&dimension=${srch.dimension}`)
+      .get(`https://rickandmortyapi.com/api/location?name=${srch.name}&type=${srch.type}&dimension=${srch.dimension}&page=${page.toString()}`)
       .then(response => {
-        console.log(response.data.results)
+        // console.log(response.data)
+        // console.log(response.data.info.pages,'max')
+        setPages(response.data.info.pages)
         setLoc(response.data.results)
       })
       .catch (error => {
         console.log (error);
       })
 
-  },[searchNow]);
+  },[searchNow, page]);
 
   return (
     <>
@@ -118,6 +163,10 @@ export default function CharacterList() {
         <LocationCard key={item.id} name={item.name} type={item.type} dimension={item.dimension}/>
       ))}
     </LocationCards>
+    <PageButtons>
+      <button onClick={event => handlePrevious(event)}>Previous</button>
+      <button onClick={event => handleNext(event)}>Next</button>
+      </PageButtons>
     </>
   );
 }

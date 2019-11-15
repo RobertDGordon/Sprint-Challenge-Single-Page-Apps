@@ -5,6 +5,8 @@ import styled from 'styled-components';
 const HeaderWrap =styled.header`
   color: white;
   background-color: black;
+  background-image: url('https://i1.wp.com/argylebandboosters.com/wp-content/uploads/2019/03/videoblocks-animation-of-stars-background-seamless-loop_bx3pbkf9f_thumbnail-full07.png?ssl=1');
+  background-size:cover;
   display: flex;
   justify-content: space-around;
   height: 75px;
