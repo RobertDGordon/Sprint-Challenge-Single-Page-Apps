@@ -40,3 +40,13 @@ main {
 header h1 {
   text-align: center;
 }
+
+a {
+  text-decoration: none;
+  color: rgb(60, 105, 0);
+}
+
+a.active {
+  color: rgb(0, 117, 29);
+  font-weight: bold;
+}
